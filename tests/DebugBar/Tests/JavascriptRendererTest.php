@@ -151,7 +151,14 @@ class JavascriptRendererTest extends DebugBarTestCase
     {
         $this->r->setInitialization(JavascriptRenderer::INITIALIZE_CONSTRUCTOR);
         $this->r->setHideEmptyTabs(true);
-        $this->assertStringStartsWith("<script type=\"text/javascript\">\nvar phpdebugbar = new PhpDebugBar.DebugBar();\nphpdebugbar.setHideEmptyTabs(true);", $this->r->render());
+        $this->assertStringStartsWith("<script type=\"text/javascript\">\nvar phpdebugbar = new PhpDebugBar.DebugBar({\"hideEmptyTabs\":true});\n", $this->r->render());
+    }
+
+    public function testRenderConstructorWithTheme()
+    {
+        $this->r->setInitialization(JavascriptRenderer::INITIALIZE_CONSTRUCTOR);
+        $this->r->setTheme('dark');
+        $this->assertStringStartsWith("<script type=\"text/javascript\">\nvar phpdebugbar = new PhpDebugBar.DebugBar({\"theme\":\"dark\"});", $this->r->render());
     }
 
     public function testJQueryNoConflictAutoDisabling()
